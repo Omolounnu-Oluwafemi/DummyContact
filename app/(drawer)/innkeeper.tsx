@@ -1,11 +1,11 @@
 import { router } from "expo-router";
 import { Button, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-export default function profilePage() {
+export default function InnkeeperPage() {
   return (
     <SafeAreaView>
-      <Text>This is profile page</Text>
-      <Button onPress={() => router.back()} title="Go Back" />
+      <Text>This is innkeeper page</Text>
+      <Button onPress={() => router.push("/explore")} title="Go to Explore" />
     </SafeAreaView>
   );
 }
