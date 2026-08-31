@@ -1,12 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from "expo-image-picker";
-import { router } from "expo-router";
 import * as Location from "expo-location";
+import { router } from "expo-router";
 import React, { useEffect } from "react";
 import { Alert, Button, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 export default function ExplorePage() {
-  const [location, setLocation] = React.useState<Location.LocationObjectCoords | null>(null);
+  const [location, setLocation] =
+    React.useState<Location.LocationObjectCoords | null>(null);
 
   async function takePhoto() {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
@@ -58,7 +59,13 @@ export default function ExplorePage() {
       <Button onPress={takePhoto} title="Take Photo" />
 
       {location && (
-        <Text>
+        <Text
+          style={{
+            marginTop: 16,
+            textDecorationLine: "underline",
+            textDecorationColor: "blue",
+          }}
+        >
           Latitude: {location.latitude}, Longitude: {location.longitude}
         </Text>
       )}
