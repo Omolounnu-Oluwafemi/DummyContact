@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "expo-router";
-import { ActivityIndicator, FlatList, Text } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  Text,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 // type Contact = { id: number; name: string };
@@ -86,7 +91,7 @@ export default function ContactListPage() {
   //   status: "loading",
   // });
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch, isRefetching } = useQuery({
     queryKey: ["contacts"],
     queryFn: fetchContacts,
   });
@@ -143,6 +148,9 @@ export default function ContactListPage() {
             <Text>{item.name}</Text>
           </Link>
         )}
+        refreshControl={
+          <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+        }
       />
     </SafeAreaView>
   );

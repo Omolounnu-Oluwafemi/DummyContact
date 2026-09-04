@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { useIsOnline } from "../../hooks/useIsOnline";
 import {
   fetchPosts,
   likePost,
@@ -19,6 +20,7 @@ import {
 export default function DemoSolution() {
   const [failureMode, setFailureMode] = useState(false);
   const queryClient = useQueryClient();
+  const isOnline = useIsOnline();
 
   const { data: posts, isLoading } = useQuery({
     queryKey: ["demo-posts"],
@@ -73,6 +75,15 @@ export default function DemoSolution() {
         Tap a like button — it updates instantly, then confirms in the
         background
       </Text>
+
+      {/* NEW — offline banner, only shown when isOnline is false */}
+      {!isOnline && (
+        <View style={styles.offlineBanner}>
+          <Text style={styles.offlineBannerText}>
+            No internet — showing cached data
+          </Text>
+        </View>
+      )}
 
       <View style={styles.switchRow}>
         <Text style={styles.switchLabel}>Simulate server failure</Text>
@@ -152,4 +163,17 @@ const styles = StyleSheet.create({
   title: { fontSize: 15, flex: 1 },
   likeButton: { paddingHorizontal: 12, paddingVertical: 8 },
   likeText: { fontSize: 15, fontWeight: "bold" },
+  offlineBanner: {
+    backgroundColor: "#E76F51",
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 12,
+  }, // NEW
+  offlineBannerText: {
+    color: "#FFFFFF",
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 13,
+  }, // NEW
+  likeButtonRisky: { opacity: 0.5 },
 });
